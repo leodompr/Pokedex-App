@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.leonardo.pokedexapp.ui.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.leonardo.pokedexapp.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailsPokemonFragment"
+            app:destination="@id/detailsPokemonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsPokemonFragment"
+        android:name="com.leonardo.pokedexapp.ui.DetailsPokemonFragment"
+        android:label="fragment_details_pokemon"
+        tools:layout="@layout/fragment_details_pokemon" >
+
+        <argument
+            android:name="pokemon"
+            app:argType="com.leonardo.pokedexapp.model.PokemonUiModel" />
+    </fragment>
+</navigation>
