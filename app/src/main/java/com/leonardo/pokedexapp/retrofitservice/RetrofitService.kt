@@ -2,6 +2,7 @@ package com.leonardo.pokedexapp.retrofitservice
 
 import com.leonardo.pokedexapp.model.PokemonDetails
 import com.leonardo.pokedexapp.model.PokemonResponse
+import com.leonardo.pokedexapp.model.PokemonTypesResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -18,6 +19,9 @@ interface RetrofitService {
 
     @GET("pokemon/{name}")
     fun getPokemonDetails(@Path("name") name: String): retrofit2.Call<PokemonDetails>
+
+    @GET("type/{typeId}")
+    fun getPokemonsByType(@Path("typeId") typeId: String): retrofit2.Call<PokemonTypesResponse>
 
 
     companion object {

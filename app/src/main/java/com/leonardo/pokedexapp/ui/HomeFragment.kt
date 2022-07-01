@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
             HomePockemonViewModelFactory(PokemonsRepository(retrofitService))
         )[HomePockemonViewModel::class.java]
 
-        val count = listOf(1, 2, 3)
+        val count = listOf(1, 2, 3, 4, 5)
         for (i in count) {
             viewModel.getPokemons(page)
             page++
@@ -59,6 +59,10 @@ class HomeFragment : Fragment() {
                     viewModel.getPokemonsDetails(pokemon.name)
                 }
             }
+        }
+
+        viewModel.pokemonByTypes.observe(requireActivity()) {
+         println(it.pokemon)
         }
 
 
@@ -85,6 +89,7 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         viewModel.getPokemons(page)
+        viewModel.getPokemonsByTypes("2")
         initiRecyclerView()
 
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.leonardo.pokedexapp.model.PokemonDetails
 import com.leonardo.pokedexapp.model.PokemonResponse
+import com.leonardo.pokedexapp.model.PokemonTypesResponse
 import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
     val pokemonList = MutableLiveData<PokemonResponse>()
     val errorMessage = MutableLiveData<String>()
     val pokemonDetails = MutableLiveData<PokemonDetails>()
+    val pokemonByTypes = MutableLiveData<PokemonTypesResponse>()
 
 
 
@@ -47,6 +49,23 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
             }
 
             override fun onFailure(call: Call<PokemonDetails>, t: Throwable) {
+                //Quando houver falha
+                errorMessage.postValue(t.message)
+            }
+
+        })
+    }
+
+
+    fun getPokemonsByTypes(id: String) = viewModelScope.launch{
+        val request = repository.getPokemonsByTypes(id)
+        request.enqueue(object : Callback<PokemonTypesResponse> {
+            override fun onResponse(call: Call<PokemonTypesResponse>, response: Response<PokemonTypesResponse>) {
+                //Quando houver resposta
+                pokemonByTypes.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<PokemonTypesResponse>, t: Throwable) {
                 //Quando houver falha
                 errorMessage.postValue(t.message)
             }
