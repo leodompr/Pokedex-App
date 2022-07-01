@@ -5,6 +5,7 @@
     android:id="@+id/constraint_layout_details_pokemon"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pokemon_fire"
     tools:context=".ui.DetailsPokemonFragment">
 
     <FrameLayout
@@ -26,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginTop="-50dp"
+                android:layout_marginTop="-60dp"
                 android:layout_marginBottom="-30dp"
                 android:background="@drawable/background_home_app"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,10 +48,23 @@
                 app:layout_constraintStart_toEndOf="@+id/linearLayout3"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
+            <TextView
+                android:id="@+id/tv_name_pokemon_datail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                tools:text="Pokemon" />
+
             <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="220dp"
                 android:layout_alignParentTop="true"
 
                 android:layout_alignParentBottom="true"
@@ -61,7 +75,7 @@
                 <ImageView
                     android:id="@+id/imV_pokemon_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="24dp"
                     android:src="@drawable/exemple_pokemon"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -73,15 +87,15 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="@+id/divider_pokemon_details"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_pokemon_datail">
 
                 <TextView
                     android:id="@+id/tv_weight_pokemon_detail"
@@ -108,7 +122,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout4"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"

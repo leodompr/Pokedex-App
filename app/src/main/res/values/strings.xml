@@ -5,4 +5,5 @@
     <string name="name_app">pokedex</string>
     <string name="weight">Peso</string>
     <string name="size">Tamanho</string>
+    <string name="hint_search">Pesquise</string>
 </resources>

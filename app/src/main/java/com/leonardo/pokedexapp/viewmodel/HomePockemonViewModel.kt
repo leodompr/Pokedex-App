@@ -18,8 +18,9 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
     val pokemonDetails = MutableLiveData<PokemonDetails>()
 
 
-     fun getPokemons() = viewModelScope.launch{
-        val request = repository.getPokemons()
+
+     fun getPokemons(page : Int) = viewModelScope.launch{
+        val request = repository.getPokemons(page = page)
         request.enqueue(object : Callback<PokemonResponse> {
             override fun onResponse(call: Call<PokemonResponse>, response: Response<PokemonResponse>) {
                 //Quando houver resposta
@@ -33,6 +34,9 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
 
         })
     }
+
+
+
 
     fun getPokemonsDetails(name: String) = viewModelScope.launch{
         val request = repository.getPokemonDetails(name)

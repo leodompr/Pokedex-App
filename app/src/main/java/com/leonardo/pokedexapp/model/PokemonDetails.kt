@@ -14,5 +14,7 @@ data class PokemonDetails(
     @SerializedName("weight")
     val weight: Int,
     @SerializedName("sprites")
-    val sprites: Sprites
+    val sprites: Sprites,
+
+
 )

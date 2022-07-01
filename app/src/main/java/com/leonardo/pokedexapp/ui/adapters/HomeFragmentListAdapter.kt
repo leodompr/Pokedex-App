@@ -1,5 +1,6 @@
 package com.leonardo.pokedexapp.ui.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.model.PokemonUiModel
-import java.util.*
 
 class HomeFragmentListAdapter(private val onItemClick: (PokemonUiModel) -> Unit) :
     RecyclerView.Adapter<HomeFragmentListAdapter.ViewHolder>() {
@@ -38,19 +38,16 @@ class HomeFragmentListAdapter(private val onItemClick: (PokemonUiModel) -> Unit)
             val txtNamePokemon: TextView = itemView.findViewById(R.id.tv_pokemon_name_item)
             txtNamePokemon.text = item.name
 
-            val cardColorItem: CardView = itemView.findViewById(R.id.cvBackgroundColor)
+            val tvPokemonType: TextView = itemView.findViewById(R.id.tv_pokemon_type_item)
+            tvPokemonType.text = item.type
 
-            when(item.type.toLowerCase(Locale.ROOT)) {
-                "normal" -> cardColorItem.setCardBackgroundColor(R.color.pokemon_electric)
-                "fire" -> cardColorItem.setCardBackgroundColor(R.color.pokemon_fire)
-                "water" -> cardColorItem.setCardBackgroundColor(R.color.pokemon_water)
-                "electric" -> cardColorItem.setCardBackgroundColor(R.color.pokemon_electric)
-            }
+            val cardColorItem: CardView = itemView.findViewById(R.id.cvBackgroundColor)
+            cardColorItem.setCardBackgroundColor((Color.parseColor(item.color)))
+
 
             val imgPokemon: ImageView = itemView.findViewById(R.id.imV_pokemon_item)
             Glide.with(imgPokemon)
                 .load(item.imageUrl)
-                .sizeMultiplier(0.5f)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgPokemon)
         }

@@ -11,16 +11,17 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @GET("pokemon")
-     fun getPokemonResponseList(
-        @Query("limit") limit: Int = 1154,
+    fun getPokemonResponseList(
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 40,
     ): retrofit2.Call<PokemonResponse>
 
     @GET("pokemon/{name}")
-     fun getPokemonDetails(@Path("name") name: String): retrofit2.Call<PokemonDetails>
+    fun getPokemonDetails(@Path("name") name: String): retrofit2.Call<PokemonDetails>
 
 
     companion object {
-        private val retrofitService : RetrofitService by lazy {  //RetrofitService
+        private val retrofitService: RetrofitService by lazy {  //RetrofitService
 
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/")
@@ -31,12 +32,11 @@ interface RetrofitService {
 
         }
 
-        fun getInstance() : RetrofitService {
+        fun getInstance(): RetrofitService {
             return retrofitService
         }
 
     }
-
 
 
 }

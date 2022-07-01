@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_detailsPokemonFragment"
             app:destination="@id/detailsPokemonFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pokemonsByTypesFragment"
+            app:destination="@id/pokemonsByTypesFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsPokemonFragment"
@@ -32,5 +35,14 @@
         <argument
             android:name="pokemon"
             app:argType="com.leonardo.pokedexapp.model.PokemonUiModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonsByTypesFragment"
+        android:name="com.leonardo.pokedexapp.ui.PokemonsByTypesFragment"
+        android:label="fragment_pokemons_by_types"
+        tools:layout="@layout/fragment_pokemons_by_types" >
+        <argument
+            android:name="type"
+            app:argType="string" />
     </fragment>
 </navigation>
