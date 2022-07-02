@@ -183,8 +183,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadingCancel() {
-        binding.lvLoading.visibility = View.GONE
-        binding.constraintLayoutDetailsPokemon.visibility = View.VISIBLE
+        if (listPokemon.isNotEmpty()){
+            binding.lvLoading.visibility = View.GONE
+            binding.constraintLayoutDetailsPokemon.visibility = View.VISIBLE
+        }
     }
 
     private fun openDialogFilter() {

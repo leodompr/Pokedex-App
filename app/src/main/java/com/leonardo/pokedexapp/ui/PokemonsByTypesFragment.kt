@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.databinding.FragmentPokemonsByTypesBinding
@@ -24,7 +25,9 @@ class PokemonsByTypesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: HomePockemonViewModel
     val args: PokemonsByTypesFragmentArgs by navArgs()
-    private val adapterRv = PokemonByTypesAdapter {}
+    private val adapterRv = PokemonByTypesAdapter {
+        navToDetail(it)
+    }
     var listPokemon: MutableList<PokemonUiModel> = mutableListOf()
 
 
@@ -55,7 +58,7 @@ class PokemonsByTypesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getPokemonsByTypes(args.type)
+
         _binding = FragmentPokemonsByTypesBinding.inflate(inflater, container, false)
         initiRecyclerView()
         return binding.root
@@ -92,7 +95,10 @@ class PokemonsByTypesFragment : Fragment() {
     }
 
 
-
+    private fun navToDetail(pokemon: PokemonUiModel) {
+        val action = PokemonsByTypesFragmentDirections.actionPokemonsByTypesFragmentToDetailsPokemonFragment(pokemon)
+        findNavController().navigate(action)
+    }
 
     private fun initiRecyclerView() {
         binding.rvPokemonTypes.apply {

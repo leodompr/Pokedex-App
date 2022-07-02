@@ -20,6 +20,9 @@ interface RetrofitService {
     @GET("pokemon/{name}")
     fun getPokemonDetails(@Path("name") name: String): retrofit2.Call<PokemonDetails>
 
+    @GET("pokemon/{name}")
+    fun getPokemon(@Path("name") name: String): retrofit2.Call<PokemonDetails>
+
     @GET("type/{typeId}")
     fun getPokemonsByType(@Path("typeId") typeId: String): retrofit2.Call<PokemonTypesResponse>
 

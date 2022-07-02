@@ -16,6 +16,7 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
     val pokemonList = MutableLiveData<PokemonResponse>()
     val errorMessage = MutableLiveData<String>()
     val pokemonDetails = MutableLiveData<PokemonDetails>()
+    val pokemon = MutableLiveData<PokemonDetails>()
     val pokemonByTypes = MutableLiveData<PokemonTypesResponse>()
 
 
@@ -45,6 +46,22 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
             override fun onResponse(call: Call<PokemonDetails>, response: Response<PokemonDetails>) {
                 //Quando houver resposta
                 pokemonDetails.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<PokemonDetails>, t: Throwable) {
+                //Quando houver falha
+                errorMessage.postValue(t.message)
+            }
+
+        })
+    }
+
+    fun getPokemon(name: String) = viewModelScope.launch{
+        val request = repository.getPokemon(name)
+        request.enqueue(object : Callback<PokemonDetails> {
+            override fun onResponse(call: Call<PokemonDetails>, response: Response<PokemonDetails>) {
+                //Quando houver resposta
+                pokemon.postValue(response.body())
             }
 
             override fun onFailure(call: Call<PokemonDetails>, t: Throwable) {

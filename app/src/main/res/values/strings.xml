@@ -25,4 +25,5 @@
     <string name="poison_type">Veneno</string>
     <string name="ground_type">Terra</string>
     <string name="all_pokemons_title">Todos os Pokemons</string>
+    <string name="text_loading_details">Aguarde-o sair da Pokebola</string>
 </resources>
