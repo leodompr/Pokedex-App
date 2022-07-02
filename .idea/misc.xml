@@ -3,17 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/background_button_choise_type.xml" value="0.3665" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/background_card_item_type.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/background_home_app.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/edit_text_background.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ellipse_background_item.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_fire.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_ground.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_poison.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_psychic.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_rock.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_steel.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_water.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/shape_card_list_item.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/font/inter.xml" value="0.396875" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/activity_main.xml" value="0.88" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_details_pokemon.xml" value="0.4495967741935484" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/dialog_choise_type.xml" value="0.25" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_details_pokemon.xml" value="0.25" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_home.xml" value="0.22" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_pokemons_by_types.xml" value="0.43434343434343436" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_pokemons_by_types.xml" value="0.25" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_splash.xml" value="0.16" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/pokemon_by_type_list_item.xml" value="0.5484375" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/pokemon_list_item.xml" value="0.25" />
       </map>
     </option>

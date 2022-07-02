@@ -6,4 +6,23 @@
     <string name="weight">Peso</string>
     <string name="size">Tamanho</string>
     <string name="hint_search">Pesquise</string>
+    <string name="fire_type">Fogo</string>
+    <string name="water_type">Água</string>
+    <string name="ghost_type">Fantasma</string>
+    <string name="normal_type">Normal</string>
+    <string name="bug_type">Inseto</string>
+    <string name="dark_type">Sombrio</string>
+    <string name="dragon_type">Dragão</string>
+    <string name="eletric_type">Elétrico</string>
+    <string name="fairy_type">Fada</string>
+    <string name="fighting_type">Lutador</string>
+    <string name="flying_type">Voador</string>
+    <string name="grass_type">Planta</string>
+    <string name="ice_type">Gelo</string>
+    <string name="psychic_type">Psíquico</string>
+    <string name="rock_type">Rocha</string>
+    <string name="steel_type">Aço</string>
+    <string name="poison_type">Veneno</string>
+    <string name="ground_type">Terra</string>
+    <string name="all_pokemons_title">Todos os Pokemons</string>
 </resources>

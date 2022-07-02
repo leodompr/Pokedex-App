@@ -15,5 +15,20 @@
     <color name="pokemon_electric">#F1D357</color>
     <color name="pokemon_plant">#97BEAF</color>
     <color name="pokemon_fire">#EB9E64</color>
+    <color name="pokemon_grass">#97BEAF</color>
+    <color name="pokemon_ice">#BCD0D9</color>
+    <color name="pokemon_fighting">#D6AB85</color>
+    <color name="pokemon_poison">#B697B7</color>
+    <color name="pokemon_ground">#AE9988</color>
+    <color name="pokemon_flying">#9DD2D2</color>
+    <color name="pokemon_psychic">#998BC0</color>
+    <color name="pokemon_bug">#C2CD7D</color>
+    <color name="pokemon_rock">#959595</color>
+    <color name="pokemon_ghost">#A5CBA6</color>
+    <color name="pokemon_dragon">#E5989F</color>
+    <color name="pokemon_dark">#9597BE</color>
+    <color name="pokemon_steel">#C0C0C0</color>
+    <color name="pokemon_fairys">#D3A7CC</color>
+    <color name="pokemon_normal">#919AA2</color>
 
 </resources>

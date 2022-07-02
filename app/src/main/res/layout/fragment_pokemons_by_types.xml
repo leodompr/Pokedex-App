@@ -6,15 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.PokemonsByTypesFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/azul_background_app"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemonTypes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarCategory"
         app:spanCount="2"
         tools:listitem="@layout/pokemon_list_item" />
 

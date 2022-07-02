@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.databinding.FragmentPokemonsByTypesBinding
-import com.leonardo.pokedexapp.model.Pokemon
 import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
 import com.leonardo.pokedexapp.retrofitservice.RetrofitService
-import com.leonardo.pokedexapp.ui.adapters.HomeFragmentListAdapter
+import com.leonardo.pokedexapp.ui.adapters.PokemonByTypesAdapter
 import com.leonardo.pokedexapp.viewmodel.HomePockemonViewModel
 import com.leonardo.pokedexapp.viewmodel.HomePockemonViewModelFactory
 
@@ -21,10 +23,10 @@ class PokemonsByTypesFragment : Fragment() {
     private var _binding: FragmentPokemonsByTypesBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HomePockemonViewModel
-    private var page: Int = 0
-    private val adapterRv = HomeFragmentListAdapter {}
+    val args: PokemonsByTypesFragmentArgs by navArgs()
+    private val adapterRv = PokemonByTypesAdapter {}
     var listPokemon: MutableList<PokemonUiModel> = mutableListOf()
-    var listPokemonApi: MutableList<Pokemon> = mutableListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,40 +37,16 @@ class PokemonsByTypesFragment : Fragment() {
             HomePockemonViewModelFactory(PokemonsRepository(retrofitService))
         )[HomePockemonViewModel::class.java]
 
-        viewModel.pokemonList.observe(requireActivity()) {
-            for (pokemon in it.results) {
-                if (listPokemonApi.contains(pokemon)) {
-                    continue
-                } else {
-                    viewModel.getPokemonsDetails(pokemon.name)
-                }
+        viewModel.getPokemonsByTypes(args.type)
+
+
+        viewModel.pokemonByTypes.observe(requireActivity()) {
+            listPokemon.clear()
+            for (i in it.pokemon) {
+                listPokemon.add(PokemonUiModel().pokemonToPokemonUiModel(i.pokemon))
             }
-        }
+            adapterRv.notifyDataSetChanged()
 
-
-        val count = listOf(1, 2, 3, 4, 5 ,5 ,5 ,5 ,5 ,5 ,5)
-        for (i in count) {
-            viewModel.getPokemons(page)
-            page++
-        }
-
-        viewModel.pokemonDetails.observe(requireActivity()) {
-
-            try {
-                if (listPokemon.contains(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))) {
-                    return@observe
-                } else {
-                    if (it.types.first().type.name == "fire") {
-                        println(it.types)
-                        listPokemon.add(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))
-                        adapterRv.notifyDataSetChanged()
-                    }
-
-                }
-                adapterRv.setDataSet(listPokemon)
-                adapterRv.notifyDataSetChanged()
-            } catch (e: Exception) {
-            }
         }
 
     }
@@ -77,50 +55,52 @@ class PokemonsByTypesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel.getPokemonsByTypes(args.type)
         _binding = FragmentPokemonsByTypesBinding.inflate(inflater, container, false)
+        initiRecyclerView()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbarCategory)
+
+        (activity as AppCompatActivity?)!!.supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+            title = args.typeName
+            binding.toolbarCategory.setTitleTextColor(resources.getColor(R.color.white))
+            binding.toolbarCategory.setNavigationOnClickListener {
+                requireActivity().onBackPressed()
+            }
+        }
+
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
         initiRecyclerView()
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getPokemonsDetails("6")
-        viewModel.getPokemons(page)
-
-        binding.rvPokemonTypes.addOnScrollListener(object :
-            androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(
-                recyclerView: androidx.recyclerview.widget.RecyclerView,
-                dx: Int,
-                dy: Int
-            ) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
-                    val visibleItemCount = binding.rvPokemonTypes.childCount
-                    val totalItemCount = binding.rvPokemonTypes.layoutManager?.itemCount ?: 0
-                    val pastVisibleItems =
-                        (binding.rvPokemonTypes.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).findFirstVisibleItemPosition()
-                    if (visibleItemCount + pastVisibleItems >= totalItemCount) {
-                        page++
-                        viewModel.getPokemons(page)
-                    }
-                }
-            }
-        })
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 
+
+
     private fun initiRecyclerView() {
-        adapterRv.setDataSet(listPokemon)
         binding.rvPokemonTypes.apply {
             adapter = adapterRv
         }
+        adapterRv.setDataSet(listPokemon, args.color)
+        adapterRv.notifyDataSetChanged()
+
     }
 
 }

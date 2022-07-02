@@ -1,0 +1,5 @@
+<vector android:height="24dp" android:viewportHeight="255.1"
+    android:viewportWidth="255.1" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="@color/pokemon_steel" android:pathData="M127.6,127.6m-121.6,0a121.6,121.6 0,1 1,243.2 0a121.6,121.6 0,1 1,-243.2 0"/>
+    <path android:fillColor="#FFFFFF" android:fillType="evenOdd" android:pathData="M44.34,127.58c-0.02,-0.04 -0.02,-0.09 0,-0.12l41.88,-71.56c0.02,-0.04 0.06,-0.06 0.1,-0.06h83.01c0.04,0 0.08,0.02 0.11,0.06l41.42,71.56c0.02,0.04 0.02,0.09 0,0.12l-41.42,71.48c-0.02,0.04 -0.06,0.06 -0.11,0.06H86.32c-0.04,0 -0.08,-0.02 -0.1,-0.06L44.34,127.58zM166.19,127.48c0,21.3 -17.27,38.57 -38.57,38.57s-38.57,-17.27 -38.57,-38.57s17.27,-38.57 38.57,-38.57S166.19,106.18 166.19,127.48z"/>
+</vector>

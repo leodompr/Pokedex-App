@@ -1,18 +1,21 @@
 package com.leonardo.pokedexapp.ui
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.databinding.FragmentHomeBinding
 import com.leonardo.pokedexapp.model.Pokemon
@@ -61,26 +64,21 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.pokemonByTypes.observe(requireActivity()) {
-         println(it.pokemon)
-        }
 
-
-            viewModel.pokemonDetails.observe(requireActivity()) {
-                try {
-                    if (listPokemon.contains(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))) {
-                        return@observe
-                    } else {
-                        listPokemon.add(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))
-                        adapterRv.notifyDataSetChanged()
-
-                    }
-                    adapterRv.setDataSet(listPokemon)
+        viewModel.pokemonDetails.observe(requireActivity()) {
+            try {
+                if (listPokemon.contains(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))) {
+                    return@observe
+                } else {
+                    listPokemon.add(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))
                     adapterRv.notifyDataSetChanged()
-                } catch (e: Exception) {
-                }
-            }
 
+                }
+                adapterRv.setDataSet(listPokemon)
+                adapterRv.notifyDataSetChanged()
+            } catch (e: Exception) {
+            }
+        }
 
 
     }
@@ -89,7 +87,7 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         viewModel.getPokemons(page)
-        viewModel.getPokemonsByTypes("2")
+
         initiRecyclerView()
 
 
@@ -127,11 +125,26 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (listPokemon.isEmpty()) {
+            Glide.with(this)
+                .load(R.drawable.pickhu_loading)
+                .into(binding.loadingGif)
+            loadingInit()
+
+            Handler(Looper.getMainLooper()).postDelayed(this::loadingCancel, 1000)
+
+        }
+
+
         binding.btnSortPokemon.setOnClickListener {
             navToDetail(listPokemon.random())
 
         }
 
+        binding.btnFilterList.setOnClickListener {
+            openDialogFilter()
+
+        }
 
         binding.searchEditText.addTextChangedListener(object : TextWatcher {  //Listener do EditText
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -147,15 +160,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-//
-//        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
-//            if(actionId == EditorInfo.IME_ACTION_DONE){
-//                binding.progressBar.visibility = View.VISIBLE
-//                true
-//            } else {
-//                false
-//            }
-//        }
 
 
     }
@@ -166,8 +170,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
-
     private fun initiRecyclerView() {
         adapterRv.setDataSet(listPokemon)
         binding.rvPokemonList.apply {
@@ -175,10 +177,144 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun loadingInit() {
+        binding.lvLoading.visibility = View.VISIBLE
+        binding.constraintLayoutDetailsPokemon.visibility = View.GONE
+    }
 
-    private fun filter(text: String) { // FAZ O FILTRO DO SERARCH VIEW
+    private fun loadingCancel() {
+        binding.lvLoading.visibility = View.GONE
+        binding.constraintLayoutDetailsPokemon.visibility = View.VISIBLE
+    }
+
+    private fun openDialogFilter() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.dialog_choise_type)
+
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_normal)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("1", "#919AA2", "Normal")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_fighting)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("2", "#D6AB85", "Lutador")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_flying)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("3", "#9DD2D2", "Voador")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_poison)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("4", "#B697B7", "Venenoso")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_ground)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("5", "#AE9988", "Terra")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_rock).setOnClickListener {
+            dialog.dismiss()
+            navToPokemonByTypes("6", "#959595", "Pedra")
+        }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_bug).setOnClickListener {
+            dialog.dismiss()
+            navToPokemonByTypes("7", "#C2CD7D", "Inseto")
+        }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_ghost)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("8", "#A5CBA6", "Fantasma")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_steel)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("9", "#C0C0C0", "Aço")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_fire).setOnClickListener {
+            dialog.dismiss()
+            navToPokemonByTypes("10", "#EB9E64", "Fogo")
+        }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_water)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("11", "#7EC1DD", "Água")
+            }
+
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_grass)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("12", "#97BEAF", "Grama")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_eletric)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("13", "#F1D357", "Elétrico")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_psychic)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("14", "#998BC0", "Psíquico")
+            }
+
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_ice).setOnClickListener {
+            dialog.dismiss()
+            navToPokemonByTypes("15", "#BCD0D9", "Gelo")
+        }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_dragon)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("16", "#E5989F", "Dragão")
+            }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_dark).setOnClickListener {
+            dialog.dismiss()
+            navToPokemonByTypes("17", "#9597BE", "Sombrio")
+        }
+
+        dialog.findViewById<ExtendedFloatingActionButton>(R.id.btn_choise_fairy)
+            .setOnClickListener {
+                dialog.dismiss()
+                navToPokemonByTypes("18", "#D3A7CC", "Fada")
+            }
+
+
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+
+    private fun navToPokemonByTypes(type: String, color: String, typeName: String) {
+        val action = HomeFragmentDirections.actionHomeFragmentToPokemonsByTypesFragment(
+            type,
+            color,
+            typeName
+        )
+        findNavController().navigate(action)
+    }
+
+    private fun filter(text: String) {
         val listaFiltrada: MutableList<PokemonUiModel> =
-            mutableListOf()   //nova lista que conterá os dados filtrados
+            mutableListOf()
         for (s in listPokemon) {
             if (s.name.uppercase().contains(text.uppercase())) {
                 listaFiltrada.add(s)
@@ -186,7 +322,7 @@ class HomeFragment : Fragment() {
                 viewModel.getPokemonsDetails(text)
             }
         }
-        adapterRv.filterList(listaFiltrada) //Metodo do adapter que atualiza a lista
+        adapterRv.filterList(listaFiltrada)
     }
 
 

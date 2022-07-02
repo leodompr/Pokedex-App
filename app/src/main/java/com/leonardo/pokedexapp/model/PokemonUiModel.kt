@@ -19,20 +19,28 @@ data class PokemonUiModel(
             name = pokemon.name.replaceFirstChar { it.uppercase() } ?: "",
             imageUrl = pokemon.sprites.frontDefault ?: "",
             type = returnTypeInPT(pokemon),
-            weight = pokemon.weight.toString(),
-            height = pokemon.height.toString(),
+            weight = pokemon.weight.div(10).toString() + " kg",
+            height = pokemon.height.toDouble().div(10).toString() + " m",
             color = returnColorPokemonType(pokemon)
         )
     }
 
+ fun pokemonToPokemonUiModel(pokemon: Pokemon) : PokemonUiModel {
+        return PokemonUiModel(
+            name = pokemon.name.replaceFirstChar { it.uppercase() } ?: "",
+            imageUrl = pokemon.url.getPicUrl() ?: "",
+        )
+ }
 
-
-
-
+    private fun String.extractId() = this.substringAfter("pokemon").replace("/", "").toInt()
+    private fun String.getPicUrl(): String {
+        val id = this.extractId()
+        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png"
+    }
 
     private fun returnColorPokemonType(pokemon: PokemonDetails): String {
         return when (pokemon.types.first().type.name.lowercase(Locale.ROOT)) {
-            "normal" -> "#297DDB"
+            "normal" -> "#919AA2"
             "fire" -> "#EB9E64"
             "water" -> "#7EC1DD"
             "electric" -> "#F1D357"
@@ -50,7 +58,7 @@ data class PokemonUiModel(
             "dark" -> "#9597BE"
             "steel" -> "#C0C0C0"
             "fairy" -> "#D3A7CC"
-            else -> "#297DDB"
+            else -> "#919AA2"
         }
     }
 
@@ -68,7 +76,7 @@ data class PokemonUiModel(
             "flying" -> "Voador"
             "psychic" -> "Psíquico"
             "bug" -> "Inseto"
-            "rock" -> "Pedra"
+            "rock" -> "Rocha"
             "ghost" -> "Fantasma"
             "dragon" -> "Dragão"
             "dark" -> "Sombrio"

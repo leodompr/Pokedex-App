@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.leonardo.pokedexapp.model.PokemonDetails
 import com.leonardo.pokedexapp.model.PokemonResponse
 import com.leonardo.pokedexapp.model.PokemonTypesResponse
-import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
 import kotlinx.coroutines.launch
 import retrofit2.Call

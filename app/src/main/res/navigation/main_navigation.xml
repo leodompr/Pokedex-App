@@ -44,5 +44,12 @@
         <argument
             android:name="type"
             app:argType="string" />
+        <argument android:name="color"
+            app:argType="string" />
+        <argument android:name="type_name"
+            app:argType="string" />
+        action
+            android:id="@+id/action_pokemonsByTypesFragment_to_detailsPokemonFragment"
+            app:destination="@id/detailsPokemonFragment" />
     </fragment>
 </navigation>

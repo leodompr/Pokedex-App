@@ -8,10 +8,22 @@
     android:background="@color/pokemon_fire"
     tools:context=".ui.DetailsPokemonFragment">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_details_pokemon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +48,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_type_pokemon_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                tools:text="Fogo" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/ic_elipse_type_details"
+                app:layout_constraintEnd_toEndOf="@+id/divider_pokemon_details"
+                app:layout_constraintStart_toStartOf="@+id/divider_pokemon_details"
+                app:layout_constraintTop_toBottomOf="@+id/divider_pokemon_details" />
 
             <View
                 android:id="@+id/divider_pokemon_details"
