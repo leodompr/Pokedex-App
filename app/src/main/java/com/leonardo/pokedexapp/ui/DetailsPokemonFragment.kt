@@ -1,12 +1,11 @@
 package com.leonardo.pokedexapp.ui
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -106,6 +105,14 @@ class DetailsPokemonFragment : Fragment() {
         binding.tvSizePokemonDetail.setTextColor(Color.parseColor(pokemon.color))
         binding.constraintLayoutDetailsPokemon.setBackgroundColor(Color.parseColor(pokemon.color))
         binding.dividerPokemonDetails.setBackgroundColor(Color.parseColor(pokemon.color))
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = requireActivity().window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.parseColor(pokemon.color)
+        }
+
 
         try {
             Glide.with(binding.imVPokemonDetail)

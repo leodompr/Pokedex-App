@@ -22,8 +22,8 @@ class HomeFragmentListAdapter(private val onItemClick: (PokemonUiModel) -> Unit)
         this.itemList = item
     }
 
-    fun filterList(qrSearch: MutableList<PokemonUiModel>) {
-        this.itemList = qrSearch
+    fun filterList(pokemonSearch: MutableList<PokemonUiModel>) {
+        this.itemList = pokemonSearch
         notifyDataSetChanged()
     }
 

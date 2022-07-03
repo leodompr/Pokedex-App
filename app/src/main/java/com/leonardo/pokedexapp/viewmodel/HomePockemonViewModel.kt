@@ -3,9 +3,9 @@ package com.leonardo.pokedexapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.leonardo.pokedexapp.model.PokemonDetails
-import com.leonardo.pokedexapp.model.PokemonResponse
-import com.leonardo.pokedexapp.model.PokemonTypesResponse
+import com.leonardo.pokedexapp.model.responsemodel.PokemonDetails
+import com.leonardo.pokedexapp.model.responsemodel.PokemonResponse
+import com.leonardo.pokedexapp.model.responsemodel.PokemonTypesResponse
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
 import kotlinx.coroutines.launch
 import retrofit2.Call

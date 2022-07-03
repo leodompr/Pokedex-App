@@ -1,8 +1,8 @@
 package com.leonardo.pokedexapp.retrofitservice
 
-import com.leonardo.pokedexapp.model.PokemonDetails
-import com.leonardo.pokedexapp.model.PokemonResponse
-import com.leonardo.pokedexapp.model.PokemonTypesResponse
+import com.leonardo.pokedexapp.model.responsemodel.PokemonDetails
+import com.leonardo.pokedexapp.model.responsemodel.PokemonResponse
+import com.leonardo.pokedexapp.model.responsemodel.PokemonTypesResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET

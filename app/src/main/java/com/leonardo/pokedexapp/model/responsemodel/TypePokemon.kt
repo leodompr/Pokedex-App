@@ -1,4 +1,4 @@
-package com.leonardo.pokedexapp.model
+package com.leonardo.pokedexapp.model.responsemodel
 
 import com.google.gson.annotations.SerializedName
 

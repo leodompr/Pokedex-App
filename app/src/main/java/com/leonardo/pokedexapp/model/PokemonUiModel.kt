@@ -1,6 +1,8 @@
 package com.leonardo.pokedexapp.model
 
 import android.os.Parcelable
+import com.leonardo.pokedexapp.model.responsemodel.Pokemon
+import com.leonardo.pokedexapp.model.responsemodel.PokemonDetails
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 

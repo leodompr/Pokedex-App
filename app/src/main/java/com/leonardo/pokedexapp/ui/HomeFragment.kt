@@ -3,14 +3,13 @@ package com.leonardo.pokedexapp.ui
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.databinding.FragmentHomeBinding
-import com.leonardo.pokedexapp.model.Pokemon
+import com.leonardo.pokedexapp.model.responsemodel.Pokemon
 import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
 import com.leonardo.pokedexapp.retrofitservice.RetrofitService
@@ -125,6 +124,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        colorStatusBar()
+
+
         if (listPokemon.isEmpty()) {
             Glide.with(this)
                 .load(R.drawable.pickhu_loading)
@@ -162,6 +164,14 @@ class HomeFragment : Fragment() {
 
 
 
+    }
+
+    private fun colorStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = requireActivity().window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.parseColor("#348BEE")
+        }
     }
 
     private fun navToDetail(pokemon: PokemonUiModel) {
