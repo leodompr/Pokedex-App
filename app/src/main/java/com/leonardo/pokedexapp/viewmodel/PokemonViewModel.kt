@@ -85,3 +85,4 @@ class PokemonViewModel(private val repository: PokemonsRepository) : ViewModel()
 
 
 }
+

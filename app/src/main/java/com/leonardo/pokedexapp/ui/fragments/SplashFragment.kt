@@ -30,7 +30,9 @@ class SplashFragment : Fragment() {
 
 
     private fun splashToHome() {
-        findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+        view?.post {
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+        }
 
     }
 

@@ -8,7 +8,6 @@ import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,7 +20,6 @@ import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.application.PokemonApplication
 import com.leonardo.pokedexapp.databinding.FragmentDetailsPokemonBinding
 import com.leonardo.pokedexapp.model.PokemonDaoModel
-
 import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.model.responsemodel.PokemonDetails
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
@@ -131,7 +129,6 @@ class DetailsPokemonFragment : Fragment() {
     }
 
 
-
     private fun initView(pokemon: PokemonUiModel) {
         binding.tvNamePokemonDatail.text = pokemon.name
         binding.tvWeightPokemonDetail.text = pokemon.weight
@@ -185,11 +182,7 @@ class DetailsPokemonFragment : Fragment() {
                 .into(binding.imVPokemonVariant2)
 
         } catch (e: Exception) {
-            Toast.makeText(
-                requireContext(),
-                "Erro ao carregar Pokémon, verifique sua conexão.",
-                Toast.LENGTH_LONG
-            ).show()
+            e.printStackTrace()
         }
     }
 
