@@ -1,14 +1,24 @@
 package com.leonardo.pokedexapp.ui.fragments
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.drawToBitmap
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -28,6 +38,7 @@ import com.leonardo.pokedexapp.viewmodel.PokemonFavoritesViewModel
 import com.leonardo.pokedexapp.viewmodel.PokemonViewModel
 import com.leonardo.pokedexapp.viewmodel.factorys.PokemonFavoritesViewModelFactory
 import com.leonardo.pokedexapp.viewmodel.factorys.PokemonViewModelFactory
+import java.io.ByteArrayOutputStream
 
 
 class DetailsPokemonFragment : Fragment() {
@@ -96,23 +107,26 @@ class DetailsPokemonFragment : Fragment() {
             }
         }
 
-        Glide.with(this)
+        Glide.with(this) //loading gif pokeballLoading
             .load(R.drawable.pokeball)
             .into(binding.pokeballLoading)
+
+        verifyPokemon() //verify if pokemon get successfuly from api
 
         binding.selectorFavoritePokemon.setOnClickListener {
             pokemonApi?.let {
                 setFavorite()
             }
-
         }
 
-        verifyPokemon()
+        binding.sharedPokemonImage.setOnClickListener {
+            checkPermissionSharedImage()
+        }
 
 
     }
 
-    private fun setFavorite() {
+    private fun setFavorite() { //set favorite pokemon
         pokemonApi?.let {
             if (pokemonDao.contains(PokemonDaoModel().pokemonDetaisToPokemonDaoModel(it))) {
                 viewModelFavorites.delete(PokemonDaoModel().pokemonDetaisToPokemonDaoModel(it))
@@ -128,8 +142,52 @@ class DetailsPokemonFragment : Fragment() {
 
     }
 
+    private fun sharedImage(title: String) { //share pokemon image
+        binding.toolbarDetailsPokemon.isVisible = false
+        binding.selectorFavoritePokemon.isVisible = false
+        binding.sharedPokemonImage.isVisible = false
+        val bitmap = binding.constraintLayoutDetailsPokemon.drawToBitmap()
+        val share = Intent(Intent.ACTION_SEND)
+        share.type = "image/jpeg"
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(
+                requireActivity().contentResolver,
+                bitmap,
+                title,
+                null
+            )
+        val imageUri: Uri = Uri.parse(path)
+        share.putExtra(Intent.EXTRA_STREAM, imageUri)
+        requireActivity().startActivity(Intent.createChooser(share, "Selecione"))
+        binding.toolbarDetailsPokemon.isVisible = true
+        binding.selectorFavoritePokemon.isVisible = true
+        binding.sharedPokemonImage.isVisible = true
+    }
 
-    private fun initView(pokemon: PokemonUiModel) {
+
+    private fun checkPermissionSharedImage() {
+
+        val permissionCheck =
+            ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                1
+            )
+        } else {
+            pokemon?.let {
+                sharedImage(it.name)
+            }
+        }
+    }
+
+    private fun initView(pokemon: PokemonUiModel) { //init view
         binding.tvNamePokemonDatail.text = pokemon.name
         binding.tvWeightPokemonDetail.text = pokemon.weight
         binding.tvSizePokemonDetail.text = pokemon.height
@@ -151,7 +209,7 @@ class DetailsPokemonFragment : Fragment() {
 
 
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //set a status bar color
                 val window: Window = requireActivity().window
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window.statusBarColor = Color.parseColor(pokemon.color)
@@ -187,7 +245,7 @@ class DetailsPokemonFragment : Fragment() {
     }
 
 
-    private fun loadingCancel() {
+    private fun loadingCancel() { //cancel loading
         if (pokemon != null) {
             binding.pokeballLoading.visibility = View.GONE
             binding.tvLoadingDetail.visibility = View.GONE
@@ -202,10 +260,10 @@ class DetailsPokemonFragment : Fragment() {
 
     }
 
-    private fun verifyPokemon() {
+    private fun verifyPokemon() { //verify if pokemon get sucessfully
         when (pokemon == null) {
             true -> {
-                Handler(Looper.getMainLooper()).postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({  //if not found another call is made
                     getPokemonLoading()
                 }, 1000)
             }
@@ -215,7 +273,7 @@ class DetailsPokemonFragment : Fragment() {
         }
     }
 
-    private fun getPokemonLoading() {
+    private fun getPokemonLoading() { //get pokemon
         viewModel.getPokemon(args.pokemonName.lowercase())
         loadingCancel()
     }
@@ -223,7 +281,7 @@ class DetailsPokemonFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.pokemon.postValue(null)
+        viewModel.pokemon.postValue(null) //clear list pokemon
 
     }
 

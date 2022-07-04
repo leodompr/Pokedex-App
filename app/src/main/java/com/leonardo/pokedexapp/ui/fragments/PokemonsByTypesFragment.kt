@@ -83,7 +83,8 @@ class PokemonsByTypesFragment : Fragment() {
         colorStatusBar()
 
 
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+        binding.searchEditText.addTextChangedListener(object :
+            TextWatcher { //search pokemon by name
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -109,14 +110,14 @@ class PokemonsByTypesFragment : Fragment() {
 
 
     private fun colorStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //color status bar
             val window: Window = requireActivity().window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = Color.parseColor("#348BEE")
         }
     }
 
-    private fun navToDetail(pokemon: PokemonUiModel) {
+    private fun navToDetail(pokemon: PokemonUiModel) { //navigate to detail fragment
         val action =
             PokemonsByTypesFragmentDirections.actionPokemonsByTypesFragmentToDetailsPokemonFragment(
                 pokemon.name
@@ -124,7 +125,7 @@ class PokemonsByTypesFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun initiRecyclerView() {
+    private fun initiRecyclerView() { //initi recycler view
         binding.rvPokemonByTypes.apply {
             adapter = adapterRv
         }
@@ -134,7 +135,7 @@ class PokemonsByTypesFragment : Fragment() {
     }
 
 
-    private fun filter(text: String) {
+    private fun filter(text: String) { //filter pokemon by name
         val listaFiltrada: MutableList<PokemonUiModel> =
             mutableListOf()
         for (s in listPokemon) {
@@ -146,8 +147,6 @@ class PokemonsByTypesFragment : Fragment() {
         }
         adapterRv.filterList(listaFiltrada)
     }
-
-
 
 
 }

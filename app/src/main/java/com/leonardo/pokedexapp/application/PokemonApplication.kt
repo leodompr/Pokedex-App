@@ -7,5 +7,5 @@ import com.leonardo.pokedexapp.repositories.PokemonFavoritesRepository
 class PokemonApplication : Application() {
 
     val database by lazy { PokemonRoomDatabase.getDataBase(this) }
-    val repository by lazy { PokemonFavoritesRepository(database.pokemonDao()) }
+    val repository by lazy { PokemonFavoritesRepository(database.pokemonDao()) }  //Garante que o repositorio sera instanciado apenas uma vez
 }

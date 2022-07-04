@@ -28,4 +28,12 @@
     <string name="text_loading_details">Aguarde-o sair da Pokebola</string>
     <string name="sub_title_pokemon_details">Variações</string>
     <string name="title_favorites_fragment">Favoritos</string>
+    <string name="text_empty_list_favorites">Sua lista de favoritos está vazia!</string>
+    <string name="next_page">Próximo</string>
+    <string name="onboard_1">Esta é a sua Pokédex!</string>
+    <string name="onboard_description_1">Nela você pode sortear um Pokémon aleatório</string>
+    <string name="onboarding_2">Detalhes</string>
+    <string name="onboarding_3">Filtre por tipo</string>
+    <string name="description_onboarding_2">Ver detalhes do Pokémon e salva-lo em seus favoritos</string>
+    <string name="description_onboarding_3">Explorar os Pokemons pelo tipo que \n preferir</string>
 </resources>

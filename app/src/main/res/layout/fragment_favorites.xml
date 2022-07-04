@@ -44,6 +44,7 @@
                 android:id="@+id/rv_pokemon_favorites"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +62,39 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/lv_empty_favorites"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="260dp"
+                    android:layout_height="260dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/rv_pokemon_favorites"
+                    app:srcCompat="@drawable/ic_bola_empty" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:padding="10dp"
+                    android:text="@string/text_empty_list_favorites"
+                    android:textColor="#B6B0B0" />
+
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

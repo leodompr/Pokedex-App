@@ -9,6 +9,7 @@
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/edit_text_background.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ellipse_background_item.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_logo_favorite.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_fire.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_ground.xml" value="0.3675" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/drawable/ic_pokemon_poison.xml" value="0.3675" />
@@ -21,12 +22,18 @@
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/font/inter.xml" value="0.396875" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/font/pokemonsolid.xml" value="0.95" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/activity_main.xml" value="0.88" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/activity_onboarding.xml" value="0.4375" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/dialog_choise_type.xml" value="0.25" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_details_pokemon.xml" value="0.33" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_favorites.xml" value="0.84625" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_home.xml" value="0.67" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_details_pokemon.xml" value="0.88" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_favorites.xml" value="0.22" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_home.xml" value="0.8" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_onboardig.xml" value="0.476303317535545" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_pokemons_by_types.xml" value="0.75" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/fragment_splash.xml" value="0.16" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/onboarding_1.xml" value="0.67" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/onboarding_2.xml" value="0.67" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/onboarding_3.xml" value="0.2" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/onboarding_4.xml" value="0.88" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/pokemon_by_type_list_item.xml" value="0.5484375" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/layout/pokemon_list_item.xml" value="0.25" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/PokedexApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3675" />

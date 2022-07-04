@@ -148,7 +148,7 @@ class HomeFragment : Fragment() {
 
 
         binding.btnSortPokemon.setOnClickListener {
-            navToDetail(listPokemon.random())
+            navToDetail(listPokemon.random()) //random pokemon to show in detail
 
         }
 
@@ -161,7 +161,8 @@ class HomeFragment : Fragment() {
 
         }
 
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+        binding.searchEditText.addTextChangedListener(object :
+            TextWatcher { //search pokemon by name
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -179,7 +180,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun colorStatusBar() {
+    private fun colorStatusBar() {  //change status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window: Window = requireActivity().window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -187,37 +188,37 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun navToDetail(pokemon: PokemonUiModel) {
+    private fun navToDetail(pokemon: PokemonUiModel) { //navigate to detail fragment
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsPokemonFragment(pokemon.name)
         findNavController().navigate(action)
     }
 
-    private fun navToFavorites() {
+    private fun navToFavorites() { //navigate to favorites fragment
         val action = HomeFragmentDirections.actionHomeFragmentToFavoritesFragment()
         findNavController().navigate(action)
     }
 
 
-    private fun initiRecyclerView() {
+    private fun initiRecyclerView() { //initiate recycler view
         adapterRv.setDataSet(listPokemon)
         binding.rvPokemonList.apply {
             adapter = adapterRv
         }
     }
 
-    private fun loadingInit() {
+    private fun loadingInit() { //init loading gif
         binding.lvLoading.visibility = View.VISIBLE
         binding.constraintLayoutDetailsPokemon.visibility = View.GONE
     }
 
-    private fun loadingCancel() {
+    private fun loadingCancel() { //cancel loading gif
         if (listPokemon.isNotEmpty()) {
             binding.lvLoading.visibility = View.GONE
             binding.constraintLayoutDetailsPokemon.visibility = View.VISIBLE
         }
     }
 
-    private fun openDialogFilter() {
+    private fun openDialogFilter() { //open dialog filter pokemon
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.dialog_choise_type)
 
@@ -333,7 +334,11 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun navToPokemonByTypes(type: String, color: String, typeName: String) {
+    private fun navToPokemonByTypes(
+        type: String,
+        color: String,
+        typeName: String
+    ) { //navigate to pokemon by type fragment
         val action = HomeFragmentDirections.actionHomeFragmentToPokemonsByTypesFragment(
             type,
             color,
@@ -342,7 +347,7 @@ class HomeFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun filterListPokemon(text: String) {
+    private fun filterListPokemon(text: String) { //filter list pokemon by name
         val listaFiltrada: MutableList<PokemonUiModel> =
             mutableListOf()
         for (s in listPokemon) {
@@ -355,7 +360,6 @@ class HomeFragment : Fragment() {
         }
         adapterRv.filterList(listaFiltrada)
     }
-
 
 
 }

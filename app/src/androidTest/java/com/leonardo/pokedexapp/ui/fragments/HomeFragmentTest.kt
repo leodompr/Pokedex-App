@@ -1,6 +1,5 @@
 package com.leonardo.pokedexapp.ui.fragments
 
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -15,7 +14,9 @@ import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.ui.MainActivity
 import com.leonardo.pokedexapp.ui.adapters.HomeFragmentListAdapter
 import org.hamcrest.CoreMatchers.not
-import org.junit.*
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 
 
@@ -46,7 +47,7 @@ class HomeFragmentTest {
     }
 
     @Test
-    fun testeShowRecyclerView(){
+    fun testeShowRecyclerView() {
         Thread.sleep(4000)
         onView(withId(R.id.rvPokemonList)).check(matches(isDisplayed()))
     }
@@ -63,7 +64,6 @@ class HomeFragmentTest {
         )
         onView(withId(R.id.pokeball_loading)).check(matches(isDisplayed()))
     }
-
 
 
     @Test

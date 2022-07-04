@@ -38,6 +38,7 @@ class FavoritesFragment : Fragment() {
                 favoritesList = it.toMutableList()
                 println(favoritesList)
             }
+            verifyContainsFavorites()
             adapterRv.setDataSet(favoritesList)
             adapterRv.notifyDataSetChanged()
         })
@@ -56,6 +57,7 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        verifyContainsFavorites()
         initiRecyclerView()
 
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbarPokemonsFavorites)
@@ -72,7 +74,7 @@ class FavoritesFragment : Fragment() {
 
         colorStatusBar()
 
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+        binding.searchEditText.addTextChangedListener(object : TextWatcher { //Search by name
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -88,14 +90,9 @@ class FavoritesFragment : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        initiRecyclerView()
-    }
-
 
     private fun colorStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { //Color status bar
             val window: Window = requireActivity().window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = Color.parseColor("#348BEE")
@@ -103,7 +100,7 @@ class FavoritesFragment : Fragment() {
     }
 
 
-    private fun initiRecyclerView() {
+    private fun initiRecyclerView() { //Init recycler view
         binding.rvPokemonFavorites.apply {
             adapter = adapterRv
         }
@@ -112,7 +109,7 @@ class FavoritesFragment : Fragment() {
 
     }
 
-    private fun navToDetail(pokemonDaoModel: PokemonDaoModel) {
+    private fun navToDetail(pokemonDaoModel: PokemonDaoModel) { //Navigate to detail fragment
         val action =
             FavoritesFragmentDirections.actionFavoritesFragmentToDetailsPokemonFragment(
                 pokemonDaoModel.name
@@ -120,7 +117,7 @@ class FavoritesFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun filter(text: String) {
+    private fun filter(text: String) { //Filter by name
         val listaFiltrada: MutableList<PokemonDaoModel> =
             mutableListOf()
         for (pokemon in favoritesList) {
@@ -131,6 +128,15 @@ class FavoritesFragment : Fragment() {
         adapterRv.filterList(listaFiltrada)
     }
 
+    private fun verifyContainsFavorites() {
+        if (favoritesList.isEmpty()) {
+            binding.lvEmptyFavorites.visibility = View.VISIBLE
+            binding.rvPokemonFavorites.visibility = View.INVISIBLE
+        } else {
+            binding.lvEmptyFavorites.visibility = View.GONE
+            binding.rvPokemonFavorites.visibility = View.VISIBLE
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
