@@ -1,14 +1,15 @@
 package com.leonardo.pokedexapp.model
 
-import android.os.Parcelable
-import com.leonardo.pokedexapp.model.responsemodel.Pokemon
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.leonardo.pokedexapp.model.responsemodel.PokemonDetails
-import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-@Parcelize
-data class PokemonUiModel(
-    val name: String = "",
+@Entity(tableName = "pokemon_table")
+data class PokemonDaoModel(
+    @ColumnInfo(name = "pokemon")
+    @PrimaryKey val name: String = "",
     val imageUrl: String = "",
     val type: String = "",
     val weight: String = "",
@@ -16,10 +17,10 @@ data class PokemonUiModel(
     val color: String = "",
     val variant1: String = "",
     val variant2: String = "",
-) : Parcelable {
+) {
 
-    fun pokemonDetaisToPokemonUiModel(pokemon: PokemonDetails): PokemonUiModel {
-        return PokemonUiModel(
+    fun pokemonDetaisToPokemonDaoModel(pokemon: PokemonDetails): PokemonDaoModel {
+        return PokemonDaoModel(
             name = pokemon.name.replaceFirstChar { it.uppercase() } ?: "",
             imageUrl = pokemon.sprites.frontDefault ?: "",
             type = returnTypeInPT(pokemon),
@@ -29,19 +30,6 @@ data class PokemonUiModel(
             variant1 = pokemon.sprites.frontShiny ?: "",
             variant2 = pokemon.sprites.backShiny ?: ""
         )
-    }
-
- fun pokemonToPokemonUiModel(pokemon: Pokemon) : PokemonUiModel {
-        return PokemonUiModel(
-            name = pokemon.name.replaceFirstChar { it.uppercase() } ?: "",
-            imageUrl = pokemon.url.getPicUrl() ?: "",
-        )
- }
-
-    private fun String.extractId() = this.substringAfter("pokemon").replace("/", "").toInt()
-    private fun String.getPicUrl(): String {
-        val id = this.extractId()
-        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png"
     }
 
     private fun returnColorPokemonType(pokemon: PokemonDetails): String {
@@ -90,7 +78,7 @@ data class PokemonUiModel(
             "fairy" -> "Fada"
             else -> "Normal"
         }
+
+
     }
-
-
 }

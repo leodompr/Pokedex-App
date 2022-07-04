@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Pokedex App</string>
+    <string name="app_name">Pokédex</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="name_app">pokedex</string>
+    <string name="name_app">pokédex</string>
     <string name="weight">Peso</string>
     <string name="size">Tamanho</string>
     <string name="hint_search">Pesquise</string>
@@ -26,4 +26,6 @@
     <string name="ground_type">Terra</string>
     <string name="all_pokemons_title">Todos os Pokemons</string>
     <string name="text_loading_details">Aguarde-o sair da Pokebola</string>
+    <string name="sub_title_pokemon_details">Variações</string>
+    <string name="title_favorites_fragment">Favoritos</string>
 </resources>

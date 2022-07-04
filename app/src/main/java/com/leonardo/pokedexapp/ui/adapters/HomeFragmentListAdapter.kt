@@ -18,7 +18,7 @@ class HomeFragmentListAdapter(private val onItemClick: (PokemonUiModel) -> Unit)
     var itemList: List<PokemonUiModel> = listOf()
 
 
-    fun setDataSet(item: List<PokemonUiModel>) { //Alimenta a RecyclerView
+    fun setDataSet(item: List<PokemonUiModel>) {
         this.itemList = item
     }
 
@@ -31,7 +31,7 @@ class HomeFragmentListAdapter(private val onItemClick: (PokemonUiModel) -> Unit)
 
         fun linkItem(onItemClick: (PokemonUiModel) -> Unit, item: PokemonUiModel) {
 
-            itemView.setOnClickListener { //Captura os eventos de click
+            itemView.setOnClickListener {
                 onItemClick(item)
             }
 

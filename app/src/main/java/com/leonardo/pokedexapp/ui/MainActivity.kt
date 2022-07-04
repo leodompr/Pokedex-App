@@ -1,7 +1,7 @@
-package com.leonardo.pokedexapp
+package com.leonardo.pokedexapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.leonardo.pokedexapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

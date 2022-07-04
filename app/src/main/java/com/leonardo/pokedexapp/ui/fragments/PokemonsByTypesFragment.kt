@@ -1,4 +1,4 @@
-package com.leonardo.pokedexapp.ui
+package com.leonardo.pokedexapp.ui.fragments
 
 import android.graphics.Color
 import android.os.Build
@@ -17,20 +17,19 @@ import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
 import com.leonardo.pokedexapp.retrofitservice.RetrofitService
 import com.leonardo.pokedexapp.ui.adapters.PokemonByTypesAdapter
-import com.leonardo.pokedexapp.viewmodel.HomePockemonViewModel
-import com.leonardo.pokedexapp.viewmodel.HomePockemonViewModelFactory
+import com.leonardo.pokedexapp.viewmodel.PokemonViewModel
+import com.leonardo.pokedexapp.viewmodel.factorys.PokemonViewModelFactory
 
 
 class PokemonsByTypesFragment : Fragment() {
     private val retrofitService = RetrofitService.getInstance()
-    private var _binding: FragmentPokemonsByTypesBinding? = null
-    private val binding get() = _binding!!
-    private lateinit var viewModel: HomePockemonViewModel
-    val args: PokemonsByTypesFragmentArgs by navArgs()
+    private lateinit var binding: FragmentPokemonsByTypesBinding
+    private lateinit var viewModel: PokemonViewModel
+    private val args: PokemonsByTypesFragmentArgs by navArgs()
     private val adapterRv = PokemonByTypesAdapter {
         navToDetail(it)
     }
-    var listPokemon: MutableList<PokemonUiModel> = mutableListOf()
+    private var listPokemon: MutableList<PokemonUiModel> = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +38,8 @@ class PokemonsByTypesFragment : Fragment() {
 
         viewModel = ViewModelProvider(
             requireActivity(),
-            HomePockemonViewModelFactory(PokemonsRepository(retrofitService))
-        )[HomePockemonViewModel::class.java]
+            PokemonViewModelFactory(PokemonsRepository(retrofitService))
+        )[PokemonViewModel::class.java]
 
         viewModel.getPokemonsByTypes(args.type)
 
@@ -61,7 +60,7 @@ class PokemonsByTypesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentPokemonsByTypesBinding.inflate(inflater, container, false)
+        binding = FragmentPokemonsByTypesBinding.inflate(inflater, container, false)
         initiRecyclerView()
         return binding.root
     }
@@ -84,7 +83,7 @@ class PokemonsByTypesFragment : Fragment() {
         colorStatusBar()
 
 
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {  //Listener do EditText
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -93,7 +92,7 @@ class PokemonsByTypesFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                filter(p0.toString()) //Função que filtra a busca e atualiza a RecycleView
+                filter(p0.toString())
 
             }
         })
@@ -108,11 +107,6 @@ class PokemonsByTypesFragment : Fragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
 
     private fun colorStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -125,7 +119,7 @@ class PokemonsByTypesFragment : Fragment() {
     private fun navToDetail(pokemon: PokemonUiModel) {
         val action =
             PokemonsByTypesFragmentDirections.actionPokemonsByTypesFragmentToDetailsPokemonFragment(
-                pokemon
+                pokemon.name
             )
         findNavController().navigate(action)
     }
@@ -152,5 +146,8 @@ class PokemonsByTypesFragment : Fragment() {
         }
         adapterRv.filterList(listaFiltrada)
     }
+
+
+
 
 }

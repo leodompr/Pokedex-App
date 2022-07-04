@@ -11,27 +11,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.leonardo.pokedexapp.R
-import com.leonardo.pokedexapp.model.PokemonUiModel
+import com.leonardo.pokedexapp.model.PokemonDaoModel
 
-class PokemonByTypesAdapter(private val onItemClick: (PokemonUiModel) -> Unit) :
-    RecyclerView.Adapter<PokemonByTypesAdapter.ViewHolder>() {
-    var itemList: List<PokemonUiModel> = listOf()
-    var color : String = "#FFFFFF"
+class FavoritesPokemonAdapter(private val onItemClick: (PokemonDaoModel) -> Unit) :
+    RecyclerView.Adapter<FavoritesPokemonAdapter.ViewHolder>() {
+    var itemList: List<PokemonDaoModel> = listOf()
 
 
-    fun setDataSet(item: List<PokemonUiModel>, color: String) { //Alimenta a RecyclerView
+    fun setDataSet(item: List<PokemonDaoModel>) {
         this.itemList = item
-        this.color = color
+
     }
 
-    fun filterList(qrSearch: MutableList<PokemonUiModel>) {
+    fun filterList(qrSearch: MutableList<PokemonDaoModel>) {
         this.itemList = qrSearch
         notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun linkItem(onItemClick: (PokemonUiModel) -> Unit, item: PokemonUiModel, color: String) {
+        fun linkItem(onItemClick: (PokemonDaoModel) -> Unit, item: PokemonDaoModel) {
 
             itemView.setOnClickListener {
                 onItemClick(item)
@@ -40,8 +39,12 @@ class PokemonByTypesAdapter(private val onItemClick: (PokemonUiModel) -> Unit) :
             val txtNamePokemon: TextView = itemView.findViewById(R.id.tv_pokemon_name_item)
             txtNamePokemon.text = item.name
 
+            val tvPokemonType: TextView = itemView.findViewById(R.id.tv_pokemon_type_item)
+            tvPokemonType.text = item.type
+
             val cardColorItem: CardView = itemView.findViewById(R.id.cvBackgroundColor)
-            cardColorItem.setCardBackgroundColor((Color.parseColor(color)))
+            cardColorItem.setCardBackgroundColor((Color.parseColor(item.color)))
+
 
             val imgPokemon: ImageView = itemView.findViewById(R.id.imV_pokemon_item)
             Glide.with(imgPokemon)
@@ -55,13 +58,14 @@ class PokemonByTypesAdapter(private val onItemClick: (PokemonUiModel) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.pokemon_by_type_list_item, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.pokemon_list_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemList[position]
-        holder.linkItem(onItemClick, item, color)
+        holder.linkItem(onItemClick, item)
 
     }
 

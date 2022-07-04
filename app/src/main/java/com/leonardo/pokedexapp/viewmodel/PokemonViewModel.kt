@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewModel() {
+class PokemonViewModel(private val repository: PokemonsRepository) : ViewModel() {
     val pokemonList = MutableLiveData<PokemonResponse>()
     val errorMessage = MutableLiveData<String>()
     val pokemonDetails = MutableLiveData<PokemonDetails>()
@@ -20,11 +20,13 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
     val pokemonByTypes = MutableLiveData<PokemonTypesResponse>()
 
 
-
-     fun getPokemons(page : Int) = viewModelScope.launch{
+    fun getPokemons(page: Int) = viewModelScope.launch {
         val request = repository.getPokemons(page = page)
         request.enqueue(object : Callback<PokemonResponse> {
-            override fun onResponse(call: Call<PokemonResponse>, response: Response<PokemonResponse>) {
+            override fun onResponse(
+                call: Call<PokemonResponse>,
+                response: Response<PokemonResponse>
+            ) {
                 //Quando houver resposta
                 pokemonList.postValue(response.body())
             }
@@ -38,34 +40,28 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
     }
 
 
-
-
-    fun getPokemonsDetails(name: String) = viewModelScope.launch{
+    fun getPokemonsDetails(name: String) = viewModelScope.launch {
         val request = repository.getPokemonDetails(name)
         request.enqueue(object : Callback<PokemonDetails> {
-            override fun onResponse(call: Call<PokemonDetails>, response: Response<PokemonDetails>) {
-                //Quando houver resposta
+            override fun onResponse( call: Call<PokemonDetails>, response: Response<PokemonDetails> ) {
                 pokemonDetails.postValue(response.body())
             }
 
             override fun onFailure(call: Call<PokemonDetails>, t: Throwable) {
-                //Quando houver falha
                 errorMessage.postValue(t.message)
             }
 
         })
     }
 
-    fun getPokemon(name: String) = viewModelScope.launch{
+    fun getPokemon(name: String) = viewModelScope.launch {
         val request = repository.getPokemon(name)
         request.enqueue(object : Callback<PokemonDetails> {
-            override fun onResponse(call: Call<PokemonDetails>, response: Response<PokemonDetails>) {
-                //Quando houver resposta
+            override fun onResponse( call: Call<PokemonDetails>, response: Response<PokemonDetails> ) {
                 pokemon.postValue(response.body())
             }
 
             override fun onFailure(call: Call<PokemonDetails>, t: Throwable) {
-                //Quando houver falha
                 errorMessage.postValue(t.message)
             }
 
@@ -73,16 +69,14 @@ class HomePockemonViewModel(private val repository: PokemonsRepository) : ViewMo
     }
 
 
-    fun getPokemonsByTypes(id: String) = viewModelScope.launch{
+    fun getPokemonsByTypes(id: String) = viewModelScope.launch {
         val request = repository.getPokemonsByTypes(id)
         request.enqueue(object : Callback<PokemonTypesResponse> {
-            override fun onResponse(call: Call<PokemonTypesResponse>, response: Response<PokemonTypesResponse>) {
-                //Quando houver resposta
+            override fun onResponse( call: Call<PokemonTypesResponse>, response: Response<PokemonTypesResponse> ) {
                 pokemonByTypes.postValue(response.body())
             }
 
-            override fun onFailure(call: Call<PokemonTypesResponse>, t: Throwable) {
-                //Quando houver falha
+            override fun onFailure( call: Call<PokemonTypesResponse>, t: Throwable ) {
                 errorMessage.postValue(t.message)
             }
 

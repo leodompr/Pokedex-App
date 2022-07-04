@@ -7,52 +7,66 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.leonardo.pokedexapp.ui.SplashFragment"
+        android:name="com.leonardo.pokedexapp.ui.fragments.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.leonardo.pokedexapp.ui.HomeFragment"
+        android:name="com.leonardo.pokedexapp.ui.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailsPokemonFragment"
             app:destination="@id/detailsPokemonFragment" />
         <action
             android:id="@+id/action_homeFragment_to_pokemonsByTypesFragment"
             app:destination="@id/pokemonsByTypesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsPokemonFragment"
-        android:name="com.leonardo.pokedexapp.ui.DetailsPokemonFragment"
+        android:name="com.leonardo.pokedexapp.ui.fragments.DetailsPokemonFragment"
         android:label="fragment_details_pokemon"
-        tools:layout="@layout/fragment_details_pokemon" >
+        tools:layout="@layout/fragment_details_pokemon">
 
         <argument
-            android:name="pokemon"
-            app:argType="com.leonardo.pokedexapp.model.PokemonUiModel" />
+            android:name="pokemon_name"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/pokemonsByTypesFragment"
-        android:name="com.leonardo.pokedexapp.ui.PokemonsByTypesFragment"
+        android:name="com.leonardo.pokedexapp.ui.fragments.PokemonsByTypesFragment"
         android:label="fragment_pokemons_by_types"
-        tools:layout="@layout/fragment_pokemons_by_types" >
+        tools:layout="@layout/fragment_pokemons_by_types">
         <argument
             android:name="type"
             app:argType="string" />
-        <argument android:name="color"
+        <argument
+            android:name="color"
             app:argType="string" />
-        <argument android:name="type_name"
+        <argument
+            android:name="type_name"
             app:argType="string" />
         <action
             android:id="@+id/action_pokemonsByTypesFragment_to_detailsPokemonFragment"
             app:destination="@id/detailsPokemonFragment" />
         action
-            android:id="@+id/action_pokemonsByTypesFragment_to_detailsPokemonFragment"
+        android:id="@+id/action_pokemonsByTypesFragment_to_detailsPokemonFragment"
+        app:destination="@id/detailsPokemonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.leonardo.pokedexapp.ui.fragments.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailsPokemonFragment"
             app:destination="@id/detailsPokemonFragment" />
     </fragment>
 </navigation>

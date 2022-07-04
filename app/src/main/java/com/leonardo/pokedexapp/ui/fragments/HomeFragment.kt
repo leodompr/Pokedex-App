@@ -1,4 +1,4 @@
-package com.leonardo.pokedexapp.ui
+package com.leonardo.pokedexapp.ui.fragments
 
 import android.app.Dialog
 import android.graphics.Color
@@ -10,6 +10,7 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,24 +18,23 @@ import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.databinding.FragmentHomeBinding
-import com.leonardo.pokedexapp.model.responsemodel.Pokemon
 import com.leonardo.pokedexapp.model.PokemonUiModel
+import com.leonardo.pokedexapp.model.responsemodel.Pokemon
 import com.leonardo.pokedexapp.repositories.PokemonsRepository
 import com.leonardo.pokedexapp.retrofitservice.RetrofitService
 import com.leonardo.pokedexapp.ui.adapters.HomeFragmentListAdapter
-import com.leonardo.pokedexapp.viewmodel.HomePockemonViewModel
-import com.leonardo.pokedexapp.viewmodel.HomePockemonViewModelFactory
+import com.leonardo.pokedexapp.viewmodel.PokemonViewModel
+import com.leonardo.pokedexapp.viewmodel.factorys.PokemonViewModelFactory
 
 
 class HomeFragment : Fragment() {
     private val retrofitService = RetrofitService.getInstance()
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentHomeBinding
     private var page: Int = 0
     private val adapterRv = HomeFragmentListAdapter {
         navToDetail(it)
     }
-    private lateinit var viewModel: HomePockemonViewModel
+    private lateinit var viewModel: PokemonViewModel
     var listPokemon: MutableList<PokemonUiModel> = mutableListOf()
     var listPokemonApi: MutableList<Pokemon> = mutableListOf()
 
@@ -44,8 +44,8 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(
             requireActivity(),
-            HomePockemonViewModelFactory(PokemonsRepository(retrofitService))
-        )[HomePockemonViewModel::class.java]
+            PokemonViewModelFactory(PokemonsRepository(retrofitService))
+        )[PokemonViewModel::class.java]
 
         val count = listOf(1, 2, 3, 4, 5)
         for (i in count) {
@@ -111,13 +111,22 @@ class HomeFragment : Fragment() {
             }
         })
 
+
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+
+                }
+            })
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -143,12 +152,16 @@ class HomeFragment : Fragment() {
 
         }
 
+        binding.logoPokedex.setOnClickListener {
+            navToFavorites()
+        }
+
         binding.btnFilterList.setOnClickListener {
             openDialogFilter()
 
         }
 
-        binding.searchEditText.addTextChangedListener(object : TextWatcher {  //Listener do EditText
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -157,14 +170,14 @@ class HomeFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                filter(p0.toString()) //Função que filtra a busca e atualiza a RecycleView
+                filterListPokemon(p0.toString())
 
             }
         })
 
 
-
     }
+
 
     private fun colorStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -175,7 +188,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun navToDetail(pokemon: PokemonUiModel) {
-        val action = HomeFragmentDirections.actionHomeFragmentToDetailsPokemonFragment(pokemon)
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailsPokemonFragment(pokemon.name)
+        findNavController().navigate(action)
+    }
+
+    private fun navToFavorites() {
+        val action = HomeFragmentDirections.actionHomeFragmentToFavoritesFragment()
         findNavController().navigate(action)
     }
 
@@ -193,7 +211,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadingCancel() {
-        if (listPokemon.isNotEmpty()){
+        if (listPokemon.isNotEmpty()) {
             binding.lvLoading.visibility = View.GONE
             binding.constraintLayoutDetailsPokemon.visibility = View.VISIBLE
         }
@@ -324,7 +342,7 @@ class HomeFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun filter(text: String) {
+    private fun filterListPokemon(text: String) {
         val listaFiltrada: MutableList<PokemonUiModel> =
             mutableListOf()
         for (s in listPokemon) {
@@ -332,16 +350,12 @@ class HomeFragment : Fragment() {
                 listaFiltrada.add(s)
             } else {
                 viewModel.getPokemonsDetails(text)
+
             }
         }
         adapterRv.filterList(listaFiltrada)
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 
 }

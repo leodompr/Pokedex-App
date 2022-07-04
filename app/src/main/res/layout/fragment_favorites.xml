@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/azul_background_app"
-    tools:context=".ui.fragments.HomeFragment">
+    >
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_pokemons_by_types"
+        android:id="@+id/toolbar_pokemons_favorites"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -20,12 +20,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_details_pokemon"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_pokemons_by_types">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_pokemons_favorites">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +41,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_pokemon_by_types"
+                android:id="@+id/rv_pokemon_favorites"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -51,7 +50,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:spanCount="2"
-                tools:listitem="@layout/pokemon_by_type_list_item" />
+                tools:listitem="@layout/pokemon_list_item" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
