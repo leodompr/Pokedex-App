@@ -43,7 +43,7 @@
 
 - [x] Informações do pokémon selecionado
 - [x] Botão para adicionar aos favoritos
-- [x] Botão para compartilhar a foto do pokémon
+- [x] Botão para compartilhar a página de detalhes como imagem
 
 <h4> Filtrar </h4> 
 
