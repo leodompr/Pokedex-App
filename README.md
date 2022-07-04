@@ -12,9 +12,10 @@
 
 
 
-<img src="https://user-images.githubusercontent.com/94938103/177193583-d3df9fcf-f763-43db-98da-1a3fb461c79a.png" width="220" >
+
+<img src="https://user-images.githubusercontent.com/94938103/177215315-0e30ada4-73fa-41ed-a4cf-e2a7efa014fd.png" width="220" >
  
-<img src="https://user-images.githubusercontent.com/94938103/177193640-ad41b219-1c6c-4393-b64d-e5f727035651.png" width="220"> 
+<img src="https://user-images.githubusercontent.com/94938103/177215199-8538eafb-153a-4f75-8b93-a891e85e7e35.png" width="220"> 
   
 <img src="https://user-images.githubusercontent.com/94938103/177193696-d9d290cc-fc76-4d34-8607-d595fb2b65b7.png" width="220">   
  
@@ -42,6 +43,7 @@
 
 - [x] Informações do pokémon selecionado
 - [x] Botão para adicionar aos favoritos
+- [x] Botão para compartilhar a foto do pokémon
 
 <h4> Filtrar </h4> 
 
