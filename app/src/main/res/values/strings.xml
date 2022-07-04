@@ -34,6 +34,6 @@
     <string name="onboard_description_1">Nela você pode sortear um Pokémon aleatório</string>
     <string name="onboarding_2">Detalhes</string>
     <string name="onboarding_3">Filtre por tipo</string>
-    <string name="description_onboarding_2">Ver detalhes do Pokémon e salva-lo em seus favoritos</string>
+    <string name="description_onboarding_2">Ver detalhes do Pokémon e salvá-lo em seus favoritos</string>
     <string name="description_onboarding_3">Explorar os Pokemons pelo tipo que \n preferir</string>
 </resources>
