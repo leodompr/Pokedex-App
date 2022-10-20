@@ -35,7 +35,7 @@
 - [x] Listagem de todos os pokemons
 - [x] Pesquisa por nome do pokémon
 - [x] Botão na barra de pesquisa para exibir a lista de pokemons por tipo
-- [x] Botão na barra inferior para sortear um pokemon aleátorio
+- [x] Botão na barra inferior para sortear um pokemon aleatório
 - [x] Ao clicar na imagem ao topo do app a página de favoritos é exibida
 - [x] Ao clicar em um pokémon a página de detalhes é exibida
 
