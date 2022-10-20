@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import com.leonardo.pokedexapp.database.daos.PokemonDao
 import com.leonardo.pokedexapp.model.PokemonDaoModel
 import kotlinx.coroutines.flow.Flow
+import org.koin.java.KoinJavaComponent.inject
 
 class PokemonFavoritesRepository(private val pokemonFavoritesDao: PokemonDao) {
 

@@ -8,23 +8,19 @@ import android.text.TextWatcher
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.databinding.FragmentPokemonsByTypesBinding
 import com.leonardo.pokedexapp.model.PokemonUiModel
-import com.leonardo.pokedexapp.repositories.PokemonsRepository
-import com.leonardo.pokedexapp.retrofitservice.RetrofitService
 import com.leonardo.pokedexapp.ui.adapters.PokemonByTypesAdapter
 import com.leonardo.pokedexapp.viewmodel.PokemonViewModel
-import com.leonardo.pokedexapp.viewmodel.factorys.PokemonViewModelFactory
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokemonsByTypesFragment : Fragment() {
-    private val retrofitService = RetrofitService.getInstance()
+//    private val retrofitService = RetrofitService.getInstance()
     private lateinit var binding: FragmentPokemonsByTypesBinding
-    private lateinit var viewModel: PokemonViewModel
+    private val viewModel by viewModel<PokemonViewModel>()
     private val args: PokemonsByTypesFragmentArgs by navArgs()
     private val adapterRv = PokemonByTypesAdapter {
         navToDetail(it)
@@ -35,11 +31,6 @@ class PokemonsByTypesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            PokemonViewModelFactory(PokemonsRepository(retrofitService))
-        )[PokemonViewModel::class.java]
 
         viewModel.getPokemonsByTypes(args.type)
 

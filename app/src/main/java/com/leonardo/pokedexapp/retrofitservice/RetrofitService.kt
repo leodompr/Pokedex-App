@@ -26,24 +26,24 @@ interface RetrofitService {
     @GET("type/{typeId}")
     fun getPokemonsByType(@Path("typeId") typeId: String): retrofit2.Call<PokemonTypesResponse>
 
-
-    companion object {
-        private val retrofitService: RetrofitService by lazy {  //RetrofitService
-
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            retrofit.create(RetrofitService::class.java)
-
-        }
-
-        fun getInstance(): RetrofitService {
-            return retrofitService
-        }
-
-    }
+//
+//    companion object {
+//        private val retrofitService: RetrofitService by lazy {  //RetrofitService
+//
+//            val retrofit = Retrofit.Builder()
+//                .baseUrl("https://pokeapi.co/api/v2/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build()
+//
+//            retrofit.create(RetrofitService::class.java)
+//
+//        }
+//
+//        fun getInstance(): RetrofitService {
+//            return retrofitService
+//        }
+//
+//    }
 
 
 }

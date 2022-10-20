@@ -16,52 +16,39 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.leonardo.pokedexapp.R
-import com.leonardo.pokedexapp.application.PokemonApplication
 import com.leonardo.pokedexapp.databinding.FragmentDetailsPokemonBinding
 import com.leonardo.pokedexapp.model.PokemonDaoModel
 import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.model.responsemodel.PokemonDetails
-import com.leonardo.pokedexapp.repositories.PokemonsRepository
-import com.leonardo.pokedexapp.retrofitservice.RetrofitService
 import com.leonardo.pokedexapp.viewmodel.PokemonFavoritesViewModel
 import com.leonardo.pokedexapp.viewmodel.PokemonViewModel
-import com.leonardo.pokedexapp.viewmodel.factorys.PokemonFavoritesViewModelFactory
-import com.leonardo.pokedexapp.viewmodel.factorys.PokemonViewModelFactory
 import java.io.ByteArrayOutputStream
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class DetailsPokemonFragment : Fragment() {
-    private val retrofitService = RetrofitService.getInstance()
+
     private lateinit var binding: FragmentDetailsPokemonBinding
     private var pokemon: PokemonUiModel? = null
     private var pokemonApi: PokemonDetails? = null
     private var pokemonDao = mutableListOf<PokemonDaoModel>()
     private val args: DetailsPokemonFragmentArgs by navArgs()
-    private lateinit var viewModel: PokemonViewModel
+    private val viewModel by viewModel<PokemonViewModel>()
 
-    private val viewModelFavorites: PokemonFavoritesViewModel by viewModels {
-        PokemonFavoritesViewModelFactory((requireActivity().application as PokemonApplication).repository)
-    }
+   private val viewModelFavorites by viewModel<PokemonFavoritesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            PokemonViewModelFactory(PokemonsRepository(retrofitService))
-        )[PokemonViewModel::class.java]
 
 
         viewModel.getPokemon(args.pokemonName.lowercase())
@@ -93,6 +80,7 @@ class DetailsPokemonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbarDetailsPokemon)
 
@@ -130,10 +118,13 @@ class DetailsPokemonFragment : Fragment() {
         pokemonApi?.let {
             if (pokemonDao.contains(PokemonDaoModel().pokemonDetaisToPokemonDaoModel(it))) {
                 viewModelFavorites.delete(PokemonDaoModel().pokemonDetaisToPokemonDaoModel(it))
+                binding.animationViewFavorite.isVisible = false
                 binding.selectorFavoritePokemon.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
                 Log.d("DELETE", "DELETE")
             } else {
                 viewModelFavorites.insert(PokemonDaoModel().pokemonDetaisToPokemonDaoModel(it))
+                binding.animationViewFavorite.isVisible = true
+                binding.animationViewFavorite.playAnimation()
                 binding.selectorFavoritePokemon.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
                 Log.d("INSERT", "INSERT")
             }
@@ -201,8 +192,11 @@ class DetailsPokemonFragment : Fragment() {
 
         pokemonApi?.let {
             if (pokemonDao.contains(PokemonDaoModel().pokemonDetaisToPokemonDaoModel(it))) {
+                binding.animationViewFavorite.isVisible = true
+                binding.animationViewFavorite.playAnimation()
                 binding.selectorFavoritePokemon.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
             } else {
+                binding.animationViewFavorite.isVisible = false
                 binding.selectorFavoritePokemon.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
             }
         }

@@ -12,7 +12,6 @@ import android.text.TextWatcher
 import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -20,21 +19,20 @@ import com.leonardo.pokedexapp.R
 import com.leonardo.pokedexapp.databinding.FragmentHomeBinding
 import com.leonardo.pokedexapp.model.PokemonUiModel
 import com.leonardo.pokedexapp.model.responsemodel.Pokemon
-import com.leonardo.pokedexapp.repositories.PokemonsRepository
-import com.leonardo.pokedexapp.retrofitservice.RetrofitService
 import com.leonardo.pokedexapp.ui.adapters.HomeFragmentListAdapter
 import com.leonardo.pokedexapp.viewmodel.PokemonViewModel
-import com.leonardo.pokedexapp.viewmodel.factorys.PokemonViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
-    private val retrofitService = RetrofitService.getInstance()
+
     private lateinit var binding: FragmentHomeBinding
     private var page: Int = 0
     private val adapterRv = HomeFragmentListAdapter {
         navToDetail(it)
     }
-    private lateinit var viewModel: PokemonViewModel
+    private val viewModel by viewModel<PokemonViewModel>()
+
     var listPokemon: MutableList<PokemonUiModel> = mutableListOf()
     var listPokemonApi: MutableList<Pokemon> = mutableListOf()
 
@@ -42,16 +40,15 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            PokemonViewModelFactory(PokemonsRepository(retrofitService))
-        )[PokemonViewModel::class.java]
+
 
         val count = listOf(1, 2, 3, 4, 5)
         for (i in count) {
             viewModel.getPokemons(page)
             page++
         }
+
+
 
         viewModel.pokemonList.observe(requireActivity()) {
             for (pokemon in it.results) {
@@ -69,6 +66,7 @@ class HomeFragment : Fragment() {
                 if (listPokemon.contains(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))) {
                     return@observe
                 } else {
+
                     listPokemon.add(PokemonUiModel().pokemonDetaisToPokemonUiModel(it))
                     adapterRv.notifyDataSetChanged()
 

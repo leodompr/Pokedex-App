@@ -8,25 +8,23 @@ import android.text.TextWatcher
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.leonardo.pokedexapp.R
-import com.leonardo.pokedexapp.application.PokemonApplication
 import com.leonardo.pokedexapp.databinding.FragmentFavoritesBinding
 import com.leonardo.pokedexapp.model.PokemonDaoModel
 import com.leonardo.pokedexapp.ui.adapters.FavoritesPokemonAdapter
 import com.leonardo.pokedexapp.viewmodel.PokemonFavoritesViewModel
-import com.leonardo.pokedexapp.viewmodel.factorys.PokemonFavoritesViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
     val adapterRv = FavoritesPokemonAdapter { navToDetail(it) }
-    private val viewModel: PokemonFavoritesViewModel by viewModels {
-        PokemonFavoritesViewModelFactory((requireActivity().application as PokemonApplication).repository)
-    }
+    private val viewModel by viewModel<PokemonFavoritesViewModel>()
+
     private var favoritesList = mutableListOf<PokemonDaoModel>()
 
 
